@@ -36,6 +36,32 @@ public class GraphAlgorithms {
      */
     public static <T> List<Vertex<T>> breadthFirstSearch(Vertex<T> start,
                                                          Graph<T> graph) {
+        //TODO BFS
+        if (start == null || graph == null) {
+            throw new IllegalArgumentException("Either start or graph was null!");
+        }
+        List<Vertex<T>> known = new ArrayList<>();
+        BFS(graph, start, known);
+        return known;
+    }
+
+    private static <T> void BFS(Graph<T> g, Vertex<T> s, List<Vertex<T>> known) {
+        known.add(s);
+        List<Vertex<T>> level = new ArrayList<>();
+        level.add(s);
+        while (!level.isEmpty()) {
+            List<Vertex<T>> nextLevel = new ArrayList<>();
+            for (Vertex<T> u : level) {
+                for (Vertex<T> v : outGoingVertices(g, u)) {
+                    if (!known.contains(v)) {
+                        known.add(v);
+                        nextLevel.add(v);
+                    }
+                }
+                level = nextLevel;
+            }
+        }
+
 
     }
 
