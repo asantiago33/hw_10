@@ -71,13 +71,12 @@ public class GraphAlgorithms {
         if (start == null || graph == null) {
             throw new IllegalArgumentException("One or more inputs was null!");
         }
-
-        
-
-
+        List<Vertex<T>> known = new ArrayList<>();
+        DFS(graph, start, known);
+        return known;
     }
 
-    private static <T> void DFS(Graph<T> g, Vertex<T> u, Set<Vertex<T>> known) {
+    private static <T> void DFS(Graph<T> g, Vertex<T> u, List<Vertex<T>> known) {
 
         known.add(u);
         for (Vertex<T> v : outGoingVertices(g, u)) {
