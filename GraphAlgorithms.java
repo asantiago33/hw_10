@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Your implementations of various graph algorithms.
@@ -149,7 +146,42 @@ public class GraphAlgorithms {
      */
     public static <T> Map<Vertex<T>, Integer> dijkstras(Vertex<T> start,
                                                         Graph<T> graph) {
-        //TODO dijkstras
+        Map<Vertex<T>, List<VertexDistancePair<T>>> adList = graph.getAdjacencyList();
+        Map<Vertex<T>, Integer> d = new HashMap<>();
+        Map<Vertex<T>, Integer> cloud = new HashMap<>();
+        Map<Integer, Vertex<T>> pqHolder = new HashMap<>();
+        Queue<Integer> pq = new PriorityQueue<>();
+        Map<Vertex<T>, Map.Entry<Integer, Vertex<T>>> pqTokens = new HashMap<>();
+        for (Vertex<T> v : adList.keySet()) {
+            if (v == start) {
+                d.put(v, 0);
+            } else {
+                d.put(v, Integer.MAX_VALUE);
+            }
+            int key = d.get(v);
+            pq.add(key);
+            pqHolder.put(key, v);
+        }
+
+        while(!pq.isEmpty()) {
+            int key = pq.poll();
+            Vertex<T> u = pqHolder.get(key);
+            cloud.put(u, key);
+            for (Vertex<T> v : outGoingVertices(graph, u)) {
+                if(cloud.get(v) == null) {
+                    int wgt =
+                }
+            }
+        }
+
+    }
+
+    private static <T> List<VertexDistancePair<T>> getMapOfVerticesAndDistances(Graph<T> g, Vertex<T> s) {
+        List<VertexDistancePair<T>> result = new ArrayList<>();
+        for (VertexDistancePair<T> d : g.getAdjacencyList().get(s)) {
+            result.add(d);
+        }
+        return result;
     }
 
     /**
@@ -171,5 +203,6 @@ public class GraphAlgorithms {
      */
     public static <T> Set<Edge<T>> kruskals(Graph<T> graph) {
         //TODO kruskals
+        return null;
     }
 }
